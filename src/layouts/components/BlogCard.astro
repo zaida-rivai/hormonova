@@ -1,0 +1,52 @@
+---
+import dateFormat from "@/lib/utils/dateFormat";
+import { Image } from "astro:assets";
+import { Calendar, ChevronRight } from "react-feather";
+const { post } = Astro.props;
+const { title, image, author, date, excerpt } = post.data;
+---
+
+<div class="mb-14 md:col-6 xl:col-4">
+  <div class="card">
+    <Image class="w-full" width={425} height={285} src={image} alt="" />
+    <div class="p-6 xl:p-8 xl:pt-7">
+      <h3 class="h4 mb-4">
+        <a href={`/blog/${post.slug}`}>{title}</a>
+      </h3>
+      <ul class="card-info">
+        <li>
+          <Image
+            height={32}
+            width={32}
+            class="mr-1 inline h-8 w-8 rounded-full"
+            src="/images/author-avatar.png"
+            alt=""
+          />
+          <span>{author}</span>
+        </li>
+        <li>
+          <div class="inline-flex items-center space-x-2">
+            <Calendar />
+            <span>{dateFormat(date)}</span>
+          </div>
+        </li>
+      </ul>
+      <p class="mb-6">
+        {excerpt}
+      </p>
+      {
+        (
+          <a
+            class="inline-flex items-center justify-center text-primary transition-all duration-200"
+            href={`/blog/${post.slug}`}
+          >
+            <span class="mr-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs text-white">
+              <ChevronRight />
+            </span>
+            learn more
+          </a>
+        )
+      }
+    </div>
+  </div>
+</div>

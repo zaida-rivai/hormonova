@@ -1,0 +1,50 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { ArrowRight } from "react-feather";
+import type { Button } from "@/lib/utils/type";
+interface Solutions {
+  title: string;
+  content: string;
+  button: Button;
+}
+const {
+  our_solutions: { title, solutions },
+} = Astro.props;
+---
+
+<section class="section-bordered relative">
+  <div class="grained-bg absolute left-0 top-0 h-full w-full opacity-[0.16]">
+    <img src="/images/common-bg.png" alt="" />
+  </div>
+  <div class="container">
+    <div class="row justify-center">
+      <div class="mb-14 text-center lg:col-6">
+        <h2 class="section-title mb-0" set:html={markdownify(title)} />
+      </div>
+      <div class="row gy-4 -mt-6 lg:col-11 xl:col-10">
+        {
+          solutions.map((item: Solutions) => (
+            <div class="md:col-6 lg:col-4">
+              <div class="group relative h-full rounded-xl border border-border px-8 py-10 text-center transition-all duration-300 hover:bg-white hover:shadow">
+                <h5 class="mb-4 capitalize">{item.title}</h5>
+                <p class="mb-6">{item.content}</p>
+                {item.button.enable && (
+                  <a
+                    href={item.button.link}
+                    class="btn btn-outline-primary btn-sm stretched-link group-hover:bg-primary  group-hover:text-white"
+                  >
+                    <span class="flex items-center">
+                      {" "}
+                      {item.button.label}
+                      <ArrowRight size={20} />
+                    </span>
+                  </a>
+                )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

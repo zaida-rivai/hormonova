@@ -1,0 +1,122 @@
+---
+import config from "@/config/config.json";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { MapPin } from "react-feather";
+
+export async function getStaticPaths() {
+  const careers = await getSinglePage("careers");
+  const paths = careers.map((post) => ({
+    params: {
+      single: post.slug,
+    },
+    props: { post },
+  }));
+  return paths;
+}
+const { post } = Astro.props;
+const { Content } = await post.render();
+const { contact_form_action } = config.params;
+---
+
+<Base
+  title={post.data.title}
+  meta_title={post.data.meta_title}
+  description={post.data.description}
+  image={post.data.image}
+>
+  <section class="bg-gradient pb-12 pt-28 lg:pb-20 lg:pt-[206px]">
+    <div class="row justify-center">
+      <div class="text-center lg:col-10">
+        <h1 class="h1-lg mb-4">{post.data.title}</h1>
+        <p class="flex items-center justify-center">
+          <span class="mr-1 text-primary">
+            <MapPin size={20} />
+          </span>
+          {post.data.location} . <span class="ml-1.5 text-primary"
+            >{post.data.job_nature}</span
+          >
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-bordered mt-0">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="content col-11 lg:col-10">
+          <Content />
+          <button class="btn btn-primary job-apply-btn"
+            >Apply for this job</button
+          >
+          <form
+            class="job-apply-form mt-14 hidden"
+            action={contact_form_action}
+          >
+            <div class="row">
+              <div class="form-group lg:col-6">
+                <input
+                  type="text"
+                  class="form-input"
+                  id="name"
+                  placeholder="Your name"
+                />
+              </div>
+              <div class="form-group lg:col-6">
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="Your email"
+                  id="email"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <input class="form-input" type="tel" placeholder="Phone Number" />
+            </div>
+            <div class="form-group">
+              <textarea
+                class="form-textarea min-h-[177px]"
+                id="comment"
+                cols="30"
+                rows="10"
+                placeholder="Address, City, State, Zip Code"></textarea>
+            </div>
+            <div class="form-group">
+              <select class="form-select" name="country" id="country">
+                <option>country</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="India">India</option>
+                <option value="Us">Us</option>
+              </select>
+            </div>
+            <div class="form-group rounded-md border border-border p-6">
+              <span class="mb-6 block">Upload Your Resume Here:</span>
+              <input class="form-input h-auto" type="file" />
+            </div>
+            <p class="text-base">
+              By clicking apply job you agree to our terms that you have read in
+              our <br />
+              Terms & Conditions page.
+            </p>
+            <button class="btn btn-primary inline" type="submit">
+              Apply job
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    //show apply form
+    const showApplyFormBtn = document.querySelector(".job-apply-btn");
+    if (showApplyFormBtn)
+      showApplyFormBtn.addEventListener("click", () => {
+        document.querySelector(".job-apply-form")?.classList.toggle("hidden");
+      });
+  });
+</script>

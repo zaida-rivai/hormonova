@@ -1,0 +1,98 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { MapPin } from "react-feather";
+const { jobpost, career } = Astro.props;
+
+const customizejobpostList = jobpost.reduce((acc: any, cur: any, i: number) => {
+  if (i % 4 === 0)
+    acc.push([
+      cur ? cur : [],
+      jobpost[i + 1] ? jobpost[i + 1] : [],
+      jobpost[i + 2] ? jobpost[i + 2] : [],
+      jobpost[i + 3] ? jobpost[i + 3] : [],
+    ]);
+  return acc;
+}, []);
+---
+
+<section class="section-bordered">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="mb-14 text-center lg:col-6">
+        <h2 class="section-title mb-0" set:html={markdownify(career.title)} />
+      </div>
+      <div class="lg:col-11 xl:col-10">
+        <div class="swiper jobs-slider pr-[1px]">
+          <div class="swiper-wrapper cursor-move">
+            {
+              customizejobpostList.map((row: any) => (
+                <div class="swiper-slide">
+                  <div class="row gy-4">
+                    {row.length &&
+                      row.map(
+                        (item: any) =>
+                          item.data && (
+                            <div class="md:col-6">
+                              <div class="h-full  rounded-xl border border-border bg-white p-7 shadow xl:p-14">
+                                <h4 class="h5 mb-1">{item.data.title}</h4>
+                                <p class="mb-8 flex items-center">
+                                  <span class="mr-1 text-primary">
+                                    <MapPin size={20} />
+                                  </span>{" "}
+                                  {item.data.location}{" "}
+                                  <span class="ml-1.5 text-primary">
+                                    {item.data.job_nature}
+                                  </span>{" "}
+                                </p>
+                                <p class="mb-10">{item.data.job_description}</p>
+                                {item.data.button.enable && (
+                                  <a
+                                    href={`/career/${item.slug}`}
+                                    class="btn btn-outline-primary"
+                                  >
+                                    {item.data.button.label}
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          ),
+                      )}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+          <div class="jobs-slider-pagination swiper-bullets text-center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import "swiper/css/pagination";
+  import { Autoplay, Pagination } from "swiper/modules";
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".jobs-slider", {
+      modules: [Pagination, Autoplay],
+      spaceBetween: 24,
+      loop: true,
+      pagination: {
+        el: ".jobs-slider-pagination",
+        type: "bullets",
+        clickable: true,
+      },
+      breakpoints: {
+        600: {
+          slidesPerView: 2,
+        },
+        992: {
+          slidesPerView: 1,
+        },
+      },
+    });
+  });
+</script>

@@ -1,0 +1,9 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+const { title, page_header_description } = Astro.props;
+---
+
+<div class="mb-24 text-center lg:col-7">
+  <h1 class="h1-lg highlighted mb-8 capitalize" set:html={markdownify(title)} />
+  <p set:html={markdownify(page_header_description)} />
+</div>

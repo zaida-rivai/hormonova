@@ -1,0 +1,95 @@
+---
+interface Counter {
+  title: string;
+  amount: number;
+  scale: string;
+}
+import OurTeam from "@/components/OurTeam.astro";
+import Gellary from "@/function-components/Gellary";
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+const ourTeam = await getEntry("team", "index");
+const our_team = await getEntry("sections", "team");
+const {
+  our_work,
+  title,
+  page_header_description,
+  image,
+  description,
+  meta_title,
+  counter,
+} = ourTeam.data;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <section class="bg-gradient pb-12 pt-28 lg:pb-20 lg:pt-[206px]">
+    <div class="container">
+      <div class="row justify-center">
+        <PageHeader
+          title={title}
+          page_header_description={page_header_description}
+        />
+        <div class="row px-0 lg:col-11 lg:gx-5 xl:col-10 lg:px-3">
+          <div class="lg:col-9">
+            <img
+              height={450}
+              class="h-full max-h-[450px] w-full rounded-xl object-cover shadow"
+              src={image}
+              alt="team"
+            />
+          </div>
+          <div class="lg:col-3">
+            <div
+              class="counter flex h-full flex-col justify-center rounded-xl bg-white/20 shadow"
+            >
+              {
+                counter.map((item: Counter) => (
+                  <div class="px-6 py-7 text-center">
+                    <h2 class=" mb-2 text-primary">
+                      <span class="count" aria-valuenow={item.amount}>
+                        0
+                      </span>
+                      {item.scale}
+                    </h2>
+                    <p class="text-lg uppercase">{item.title}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <OurTeam our_team={our_team.data} />
+  <Gellary client:load our_work={our_work} />
+</Base>
+<script is:inline>
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    const counters = document.querySelectorAll(".count");
+    const speed = 700;
+    counters.forEach((counter) => {
+      const animate = () => {
+        const value = +counter.getAttribute("aria-valuenow");
+        const data = +counter.innerText;
+
+        const time = value / speed;
+        if (data < value) {
+          counter.innerText = Math.ceil(data + time);
+          setTimeout(animate, 1);
+        } else {
+          counter.innerText = value;
+        }
+      };
+
+      animate();
+    });
+  });
+</script>

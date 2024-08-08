@@ -1,0 +1,119 @@
+---
+import Social from "@/components/Social.astro";
+import config from "@/config/config.json";
+import social from "@/config/social.json";
+import Faq from "@/function-components/Faq";
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+import { AiFillMail } from "react-icons/ai";
+import { BsTelephoneFill } from "react-icons/bs";
+import { FaMapMarkerAlt } from "react-icons/fa";
+const faqData = await getEntry("sections", "faq");
+const entry = await getEntry("contact", "index");
+const { contact_form_action, location, email, phone } = config.params;
+const {
+  title,
+  description,
+  meta_title,
+  image,
+  page_header_description,
+  faq,
+  information,
+} = entry.data;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <section class="bg-gradient pb-12 pt-28 lg:pb-20 lg:pt-[206px]">
+    <div class="container">
+      <div class="row mx-0 justify-center">
+        <PageHeader
+          title={title}
+          page_header_description={page_header_description}
+        />
+
+        <div
+          class="row items-center justify-between rounded-2xl border border-border bg-white/40 px-4 py-8 shadow lg:col-11 xl:col-10 lg:px-10 lg:py-14 xl:px-[78px]"
+        >
+          <div class="mb-10 lg:col-6 lg:mb-0 lg:pr-10">
+            <h2 class="h3 mb-4">{information.title}</h2>
+            <p class="mb-8">
+              {information.content}
+            </p>
+            <ul>
+              <!--<li class="relative mb-6 pl-7">-->
+              <!--  <span class="fill absolute left-0 top-1 fill-primary">-->
+              <!--    <FaMapMarkerAlt className=" fill-primary" />-->
+              <!--  </span>-->
+              <!--  <h4 class="h5 mb-2">Find US :</h4>-->
+              <!--  {location}-->
+              <!--</li>-->
+              <li class="relative mb-6 pl-7">
+                <span class="absolute left-0 top-1 fill-primary">
+                  <BsTelephoneFill className=" fill-primary" />
+                </span>
+                <h4 class="h5 mb-2">Call Us :</h4>
+                {phone}
+              </li>
+              <li class="relative mb-6 pl-7">
+                <span class="absolute left-0 top-1"
+                  ><AiFillMail className=" fill-primary" /></span
+                >
+                <h4 class="h5 mb-2">Chat support :</h4>
+                {email}
+              </li>
+              <li>
+                <h4 class="h5 mb-2">Follow Us</h4>
+                <Social source={social} className="social-icons mb-8" />
+              </li>
+            </ul>
+          </div>
+          <div
+            class="py-10 lg:col-6 xl:col-6 lg:rounded-xl lg:bg-white lg:px-10 lg:py-14 lg:shadow"
+          >
+            <form action={contact_form_action}>
+              <div class="form-group">
+                <input class="form-input" placeholder="Your Name" type="text" />
+              </div>
+              <div class="form-group">
+                <input
+                  class="form-input"
+                  placeholder="Your Email"
+                  type="email"
+                />
+              </div>
+              <div class="form-group">
+                <textarea
+                  class="form-textarea min-h-[177px]"
+                  id="comment"
+                  cols="30"
+                  rows="10"
+                  placeholder="Message"></textarea>
+              </div>
+              <div class="form-group relative">
+                <input
+                  class="absolute left-0 top-1.5"
+                  type="checkbox"
+                  id="policy"
+                />
+                <label class="ml-2 block px-5" for="policy"
+                  >Save my name, email, and website in this browser for the next
+                  time I comment.</label
+                >
+              </div>
+              <button class="btn btn-primary block w-full" type="submit">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <Faq faq={faqData} client:load />
+</Base>

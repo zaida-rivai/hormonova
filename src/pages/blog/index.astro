@@ -1,0 +1,45 @@
+---
+import BlogCard from "@/components/BlogCard.astro";
+import config from "@/config/config.json";
+import Base from "@/layouts/Base.astro";
+import Pagination from "@/layouts/components/Pagination.astro";
+import FeaturedPost from "@/layouts/components/blog/FeaturedPost.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import CallToAction from "@/partials/CallToAction.astro";
+import type { CollectionKey } from "astro:content";
+import { getEntry } from "astro:content";
+const call_to_action = await getEntry("sections", "call-to-action");
+
+const { blog_folder } = config.settings;
+const blogIndex = await getEntry(blog_folder as CollectionKey, "-index");
+const posts = await getSinglePage(blog_folder as CollectionKey);
+const sortedPosts = sortByDate(posts);
+const featuredPost = sortedPosts.filter((item) => item.data.featured);
+const recentPost = sortedPosts.filter((item) => !item.data.featured);
+const totalPages = Math.ceil(recentPost.length / config.settings.pagination);
+const currentPosts = recentPost.slice(0, config.settings.pagination);
+---
+
+<Base
+  title={blogIndex.data.title}
+  meta_title={blogIndex.data.meta_title}
+  description={blogIndex.data.description}
+  image={blogIndex.data.image}
+>
+  <FeaturedPost featuredPost={featuredPost} />
+  <section>
+    <div class="container">
+      <div class="row justify-center">
+        <div class="section row mb-2.5 lg:col-11 xl:col-10">
+          <div class="col-12 mb-14 text-center">
+            <h2 class="highlighted"><span>Popular</span> Posts</h2>
+          </div>
+          {currentPosts.map((item: any) => <BlogCard post={item} />)}
+        </div>
+      </div>
+    </div>
+  </section>
+  <Pagination section={blog_folder} currentPage={1} totalPages={totalPages} />
+  <CallToAction call_to_action={call_to_action} />
+</Base>

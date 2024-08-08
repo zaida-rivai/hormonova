@@ -1,0 +1,57 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+const { services } = Astro.props;
+---
+
+<section class="services section-bordered">
+  <div class="container">
+    {
+      services.map((item: any, i: number) =>
+        item.image ? (
+          <div class="row relative mb-20 justify-center lg:mb-[120px]">
+            <div class="grained-bg absolute left-0 top-0 h-full w-full opacity-[0.16]">
+              <img src="/images/common-bg.png" alt="" />
+            </div>
+            <div class="lg:col-11 xl:col-10">
+              <div class="row items-center">
+                <div
+                  class={`flex justify-center lg:col-7 ${
+                    i % 2 === 0 ? "lg:order-2" : "lg:order-1"
+                  }`}
+                >
+                  <img src={item.image} alt="" />
+                </div>
+                <div
+                  class={`order-2 lg:col-5 ${
+                    i % 2 === 0 ? "lg:order-1" : "lg:order-2"
+                  }`}
+                >
+                  <h2
+                    class="section-title"
+                    set:html={markdownify(item.title)}
+                  />
+                  <p class="mb-8">{item.content}</p>
+                  {item.button.enable && (
+                    <a class="btn btn-primary" href={item.button.link}>
+                      {item.button.label}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div class="row relative justify-center">
+            <div class="grained-bg absolute left-0 top-0 h-full w-full opacity-[0.16]">
+              <img src="/images/common-bg.png" alt="" />
+            </div>
+            <div class="mx-auto text-center lg:col-6">
+              <h2 class="section-title" set:html={markdownify(item.title)} />
+              <p>{item.content}</p>
+            </div>
+          </div>
+        ),
+      )
+    }
+  </div>
+</section>

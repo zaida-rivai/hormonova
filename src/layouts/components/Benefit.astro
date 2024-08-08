@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+import { markdownify } from "@/lib/utils/textConverter";
+const {
+  our_benefits: { title, content, benefits },
+} = Astro.props;
+---
+
+<section class="section-bordered relative">
+  <div class="grained-bg absolute left-0 top-0 h-full w-full opacity-[0.16]">
+    <img src="/images/common-bg.png" alt="" />
+  </div>
+  <div class="container">
+    <div class="row justify-center">
+      <div class="mb-14 text-center lg:col-6">
+        <h2 class="section-title" set:html={markdownify(title)} />
+        <p>{content}</p>
+      </div>
+      <div class="lg:col-11 xl:col-10">
+        <div class="swiper benefits-slider pr-[1px]">
+          <div class="swiper-wrapper">
+            {
+              benefits.map((item: any) => (
+                <div class="swiper-slide h-auto rounded-xl border border-border px-10 py-12 text-center transition-all duration-300 hover:bg-white hover:shadow">
+                  <Image
+                    height={48}
+                    width={48}
+                    class="mx-auto mb-6 h-12 w-12"
+                    src={item.image}
+                    alt=""
+                  />
+                  <h3 class="h4">{item.title}</h3>
+                </div>
+              ))
+            }
+          </div>
+          <div class="benefits-slider-pagination swiper-bullets text-center">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import "swiper/css/pagination";
+  import { Autoplay, Pagination } from "swiper/modules";
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".benefits-slider", {
+      modules: [Pagination, Autoplay],
+      spaceBetween: 24,
+      loop: true,
+      pagination: {
+        el: ".benefits-slider-pagination",
+        type: "bullets",
+        clickable: true,
+      },
+      breakpoints: {
+        600: {
+          slidesPerView: 2,
+        },
+        992: {
+          slidesPerView: 4,
+        },
+      },
+    });
+  });
+</script>

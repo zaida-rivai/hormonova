@@ -1,0 +1,51 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+const { brands } = Astro.props;
+const { title, images } = brands.data;
+---
+
+<!-- brands -->
+<div class="brands py-10">
+  <div class="container">
+    <div class="mb-14 text-center">
+      <h2 class="h4 highlighted capitalize" set:html={markdownify(title)} />
+    </div>
+    <div class="overflow-hidden">
+      <div class="swiper brands-carousel cursor-pointer">
+        <div class="swiper-wrapper">
+          {
+            images.map((image: string) => (
+              <div class="swiper-slide">
+                <img src={image} alt="brand" />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import Swiper from "swiper";
+  import "swiper/css";
+  import "swiper/css/pagination";
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    //brands-carousel
+    new Swiper(".brands-carousel", {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      loop: true,
+      breakpoints: {
+        768: {
+          slidesPerView: 4,
+        },
+
+        1200: {
+          slidesPerView: 6,
+        },
+      },
+    });
+  });
+</script>

@@ -1,0 +1,19 @@
+.btn {
+  @apply inline-block border border-transparent px-14 py-[15px] text-center text-lg font-semibold capitalize transition;
+}
+
+.btn-primary {
+  @apply rounded-lg border-primary bg-primary text-white;
+}
+
+.btn-outline-dark {
+  @apply rounded-lg border-dark bg-transparent text-dark hover:border-primary hover:bg-primary hover:text-white;
+}
+
+.btn-outline-primary {
+  @apply rounded-lg border-primary bg-transparent text-primary hover:border-primary hover:bg-primary hover:text-white;
+}
+
+.btn-sm {
+  @apply h-[46px] px-6 py-2 text-base;
+}

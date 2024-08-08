@@ -1,0 +1,49 @@
+---
+import PricingTable from "@/components/PricingTable.astro";
+import Faq from "@/function-components/Faq";
+import PricingCard from "@/function-components/PricingCard";
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+const pricing = await getEntry("pricing", "index");
+const faqData = await getEntry("sections", "faq");
+const {
+  pricing_card,
+  title,
+  page_header_description,
+  image,
+  description,
+  meta_title,
+  tab,
+  features,
+} = pricing.data;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <section class="bg-gradient pb-12 pt-28 lg:pb-20 lg:pt-[206px]">
+    <div class="container">
+      <div class="row mx-0 justify-center">
+        <PageHeader
+          title={title}
+          page_header_description={page_header_description}
+        />
+      </div>
+      <PricingCard
+        tab={tab}
+        pricing_card={pricing_card}
+        features={features}
+        client:load
+      />
+    </div>
+  </section>
+
+  <!-- price-table -->
+  <PricingTable title={title} pricing_card={pricing_card} features={features} />
+
+  <Faq faq={faqData} client:load />
+</Base>

@@ -1,0 +1,39 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+const {
+  interview: { title, interview_process },
+} = Astro.props;
+---
+
+<section class="section-bordered">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="mb-14 text-center lg:col-6">
+        <h2 class="section-title mb-0" set:html={markdownify(title)} />
+      </div>
+      <div class="row gy-4 -mt-6 px-0 lg:col-10 lg:px-3">
+        {
+          interview_process.map((item: any, i: number) => (
+            <div class="md:col-6">
+              <div class="h-full rounded-xl border border-border bg-white p-14 text-center shadow">
+                <Image
+                  height={64}
+                  width={64}
+                  class="mx-auto mb-8 h-16 w-16"
+                  src={item.image}
+                  alt=""
+                />
+                <h3
+                  class="mb-9"
+                  set:html={markdownify(`${i + 1}. ${item.title}`)}
+                />
+                <p>{item.content}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

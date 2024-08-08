@@ -1,0 +1,97 @@
+---
+import Brands from "@/components/Brands.astro";
+import HompageService from "@/components/HompageService.astro";
+import Modal from "@/components/Modal.astro";
+import Features from "@/function-components/Features";
+import System from "@/function-components/System";
+import VideoComponent from "@/function-components/VideoComponent";
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction.astro";
+import Testimonial from "@/partials/Testimonial.astro";
+import { getEntry } from "astro:content";
+import { FiCheck } from "react-icons/fi";
+
+const homepage = await getEntry("homepage", "index");
+const brands = await getEntry("sections", "brands");
+const testimonial = await getEntry("sections", "testimonial");
+const call_to_action = await getEntry("sections", "call-to-action");
+const { banner, features, video, services, system } = homepage.data;
+const {
+  title,
+  content,
+  button: { enable, label, link },
+  modal,
+  badges,
+} = banner;
+---
+
+<Base>
+  <!-- Banner -->
+  <section class="bg-gradient relative pb-12 pt-28 lg:pb-20 lg:pt-[206px]">
+    <div class="bg-shape container">
+      <div class="row justify-center text-center">
+        <div class="mb-[72px] lg:col-8 xl:col-7 2xl:col-6">
+          <h1 class="h1-lg highlighted" set:html={markdownify(title)} />
+          <p class="mt-8">
+            {content}
+          </p>
+
+          <div class="mt-14">
+            {
+              enable && (
+                <a
+                  class="btn btn-primary mb-2 block w-full sm:mx-2 sm:mb-0 sm:inline-block sm:w-auto"
+                  href={link}
+                >
+                  {label}
+                </a>
+              )
+            }
+
+          </div>
+        </div>
+        <div class="col-12">
+          <ul class="flex flex-wrap items-center justify-center">
+            {
+              badges.map((item: string, i: number) => (
+                <li class="mx-2 my-2 rounded-lg bg-white px-2 py-1 lg:mx-5 lg:my-5">
+                  <FiCheck className="inline text-xl font-semibold text-[#15B400] " />
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- modal -->
+  <Modal modal={modal} />
+
+
+  <!-- Features-->
+  <Features client:load features={features} />
+
+  <HompageService services={services} />
+
+</Base>
+
+<script>
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    const modal = document.getElementById("modal") as HTMLElement;
+
+
+    function intiModal() {
+      // Add event listeners to the buttons
+
+      if (!modal) return;
+
+
+    }
+
+    intiModal();
+  });
+</script>

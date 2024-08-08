@@ -1,0 +1,47 @@
+{
+  "main": [
+    {
+      "name": "About Us",
+      "url": "/about"
+    },
+    {
+      "name": "Privacy",
+      "url": "/service"
+    }
+  ],
+  "footer": {
+    "quick_link": [
+      {
+        "name": "About",
+        "url": "/about"
+      },
+      {
+        "name": "Service",
+        "url": "/service"
+      },
+      {
+        "name": "Careers",
+        "url": "/career"
+      },
+      {
+        "name": "How It Works",
+        "url": "/how-it-works"
+      }
+    ],
+    "support": [
+      {
+        "name": "Contact",
+        "url": "/contact"
+      },
+
+      {
+        "name": "Pricing",
+        "url": "/pricing"
+      },
+      {
+        "name": "Our team",
+        "url": "/team"
+      }
+    ]
+  }
+}

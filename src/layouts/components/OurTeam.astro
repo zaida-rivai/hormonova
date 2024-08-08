@@ -1,0 +1,82 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
+const {
+  our_team: { title, content, members },
+} = Astro.props;
+---
+
+<section class="teams section-bordered teams-about">
+  <div class="container">
+    <div class="row relative mb-20 justify-center lg:mb-[120px]">
+      <div
+        class="grained-bg absolute left-0 top-0 h-full w-full opacity-[0.16]"
+      >
+        <img src="/images/common-bg.png" alt="" />
+      </div>
+      <div class="mb-14 text-center lg:col-6">
+        <h2 class="section-title" set:html={markdownify(title)} />
+        <p>{content}</p>
+      </div>
+      <div class="team-shuffle row gy-4 -mt-6 lg:col-11 xl:col-10">
+        {
+          members.map((item: any) => (
+            <div class="team-member md:col-6 xl:col-4">
+              <div class="rounded-xl bg-white px-5 py-6 xl:px-10 xl:py-12">
+                <div class="relative mb-8 pb-10 text-center after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-4 after:-translate-x-1/2 after:bg-primary after:content-['']">
+                  <Image
+                    class="mx-auto mb-6 rounded-full"
+                    src={item.image}
+                    width={150}
+                    height={150}
+                    alt=""
+                  />
+                  <h3 class="h4 mb-4 font-bold">{item.name}</h3>
+                  <p class="text-sm font-semibold text-[#505050]">
+                    {item.designation}
+                  </p>
+                </div>
+                <ul class="social-icons member-social-icons member-social-icons text-center">
+                  {item.facebook && (
+                    <li class="my-1.5">
+                      <a class="text-xl" href={item.facebook}>
+                        <FaFacebookF className="text-sm" />
+                      </a>
+                    </li>
+                  )}
+                  {item.twitter && (
+                    <li class="my-1.5">
+                      <a class="text-xl" href={item.twitter}>
+                        <FaInstagram className="text-lg" />
+                      </a>
+                    </li>
+                  )}
+                  {item.instagram && (
+                    <li class="my-1.5">
+                      <a class="text-xl" href={item.instagram}>
+                        <FaTwitter className="text-lg" />
+                      </a>
+                    </li>
+                  )}
+                  {item.linkedin && (
+                    <li class="my-1.5">
+                      <a class="text-xl" href={item.linkedin}>
+                        <FaLinkedinIn className="text-lg" />
+                      </a>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

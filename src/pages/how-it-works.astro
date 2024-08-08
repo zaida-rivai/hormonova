@@ -1,0 +1,149 @@
+---
+import Base from "@/layouts/Base.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+
+interface Butoon {
+  enable: boolean;
+  label: string;
+  link: string;
+}
+interface Process {
+  title: string;
+  content: string;
+  image: string;
+}
+interface Works extends Process {
+  button: Butoon;
+}
+const call_to_action = await getEntry("sections", "call-to-action");
+const how_it_works = await getEntry("how-it-works", "index");
+const {
+  our_hiring_process,
+  our_works,
+  title,
+  page_header_description,
+  image,
+  description,
+  meta_title,
+} = how_it_works.data;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <section class="bg-gradient pb-12 pt-28 lg:pb-20 lg:pt-[206px]">
+    <div class="container">
+      <div class="row justify-center">
+        <PageHeader
+          title={title}
+          page_header_description={page_header_description}
+        />
+      </div>
+    </div>
+  </section>
+  <!-- how it-works -->
+  <section class="section-bordered mt-0">
+    <div class="container">
+      <div class="row mb-20 justify-center">
+        {
+          our_works.map((item: Works, i: number) => (
+            <div class="row mb-20 justify-center">
+              <div class="row items-center lg:col-11 xl:col-10">
+                <div
+                  class={`lg:col-7 ${i % 2 === 0 ? "lg:order-1" : "order-2"}`}
+                >
+                  <Image
+                    height={404}
+                    width={660}
+                    class="rounded-xl"
+                    src={item.image}
+                    alt=""
+                  />
+                </div>
+                <div
+                  class={`lg:col-5 ${i % 2 === 0 ? "lg:order-2" : "order-1"}`}
+                >
+                  <h2
+                    class="section-title"
+                    set:html={markdownify(item.title)}
+                  />
+                  <p class="mb-8">{item.content}</p>
+                  {item.button.enable && (
+                    <a class="btn btn-primary" href={item.button.link}>
+                      {item.button.label}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <!-- end how it-works -->
+
+  <!-- hiring process -->
+  <section class="section hr-process relative">
+    <div class="grained-bg absolute left-0 top-0 h-full w-full opacity-[0.16]">
+      <img src="/images/common-bg.png" alt="" />
+    </div>
+    <div class="container">
+      <div class="mx-0 rounded-2xl border border-border py-20 lg:py-[100px]">
+        <div class="row mb-14">
+          <div class="mx-auto text-center lg:col-6">
+            <h2
+              class="section-title"
+              set:html={markdownify(our_hiring_process.title)}
+            />
+            <p>{our_hiring_process.content}</p>
+          </div>
+        </div>
+        <div class="mx-auto flex max-w-[944px] flex-col justify-center px-3">
+          {
+            our_hiring_process.hiring_process.map(
+              (item: Process, i: number) => (
+                <div
+                  class={`process  ${
+                    i === our_hiring_process.hiring_process.length - 1
+                      ? undefined
+                      : "pb-20"
+                  }`}
+                >
+                  <div
+                    class={`process-img ${i % 2 === 0 ? "order-1" : "order-2"}`}
+                  >
+                    <Image
+                      width={410}
+                      height={276}
+                      class="w-full"
+                      src={item.image}
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class={`process-content ${
+                      i % 2 === 0 ? "order-2" : "order-1"
+                    }`}
+                  >
+                    <span class="process-count">{i + 1}</span>
+                    <h3 class="h5 mb-4">{item.title}</h3>
+                    <p class="text-lg">{item.content}</p>
+                  </div>
+                </div>
+              ),
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+  <CallToAction call_to_action={call_to_action} />
+</Base>

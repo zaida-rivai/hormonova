@@ -1,0 +1,47 @@
+---
+import { IoMdClose } from "react-icons/io";
+const { modal } = Astro.props;
+---
+
+<section>
+  <div class="container">
+    <div class="row mb-10">
+      <div class="col-12">
+        <!--modal open button -->
+        <!-- <button id="modal-open-button" class="rounded bg-primary py-2 px-4 font-bold text-white hover:bg-primary/80">
+                  Open Modal
+              </button> -->
+        <!-- modal container -->
+        <div
+          id="modal-container"
+          class="fixed inset-0 z-50 hidden h-screen w-screen bg-theme-dark bg-opacity-75"
+        >
+        </div>
+        <!-- modal -->
+        <div
+          id="modal"
+          class="fixed left-1/2 top-1/2 z-50 hidden w-full max-w-[650px] -translate-x-1/2 -translate-y-1/2 transform rounded bg-transparent p-6 shadow-lg"
+        >
+          <div class="overflow-hidden rounded-xl">
+            <iframe
+              id="youtube-video"
+              class="w-full"
+              width="650"
+              height="450"
+              src={`https://www.youtube.com/embed/${modal.video_id}`}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <button
+            id="modal-close-button"
+            class="absolute -right-1.5 -top-1.5 inline-flex h-8 w-8 items-center justify-center rounded-full border border-primary text-xl text-primary"
+          >
+            <IoMdClose className="text-primary " />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

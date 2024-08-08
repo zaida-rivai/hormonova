@@ -1,0 +1,86 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { ArrowRight, MapPin, Clock } from "react-feather";
+const {
+  jobposts,
+  job_post: { title, content },
+} = Astro.props;
+---
+
+<section class="section-bordered">
+  <div class="container">
+    <div class="row mx-0 justify-center rounded-2xl border border-border">
+      <div class="lg:col-11 xl:col-10">
+        <div class="mb-14 text-center">
+          <h2 class="section-title mb-5" set:html={markdownify(title)} />
+          <p>{content}</p>
+        </div>
+        <div class="swiper job-slider pr-[1px]">
+          <div class="swiper-wrapper">
+            {
+              jobposts.map((item: any) => (
+                <div class="swiper-slide relative h-auto">
+                  <div class="h-full rounded-xl border border-border px-8 py-10 transition-all duration-300 hover:bg-white hover:shadow">
+                    <h5 class="mb-4 capitalize">{item.data.title}</h5>
+                    <ul>
+                      <li class="mb-2 flex items-center">
+                        <span class="mr-1.5 text-primary">
+                          <MapPin />
+                        </span>
+                        {item.data.location}
+                      </li>
+                      <li class="flex items-center">
+                        <span class="mr-1.5 text-primary">
+                          <Clock />
+                        </span>
+                        {item.data.job_nature}
+                      </li>
+                    </ul>
+                    <div class="-mt-4 text-end">
+                      <a
+                        class="stretched-link inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary/5 text-primary"
+                        href={`/career/${item.slug}`}
+                      >
+                        <ArrowRight size={20} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+          <div class="swiper-bullets job-pagination text-center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import "swiper/css/pagination";
+  import { Autoplay, Pagination } from "swiper/modules";
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".job-slider", {
+      modules: [Pagination, Autoplay],
+      spaceBetween: 24,
+      loop: true,
+      pagination: {
+        el: ".job-pagination",
+        type: "bullets",
+        clickable: true,
+      },
+      breakpoints: {
+        600: {
+          slidesPerView: 2,
+        },
+        992: {
+          slidesPerView: 3,
+        },
+      },
+    });
+  });
+</script>

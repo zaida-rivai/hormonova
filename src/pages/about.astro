@@ -1,0 +1,53 @@
+---
+import OurTeam from "@/components/OurTeam.astro";
+import AboutService from "@/components/about/AboutService.astro";
+import Experiences from "@/components/about/Experiences.astro";
+import VideoComponent from "@/function-components/VideoComponent";
+import Base from "@/layouts/Base.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { getEntry } from "astro:content";
+
+const call_to_action = await getEntry("sections", "call-to-action");
+const our_team = await getEntry("sections", "team");
+const entry: any = await getEntry("about", "index");
+const {
+  title,
+  description,
+  meta_title,
+  image,
+  video: { video_id, video_thumbnail },
+  page_header_description,
+  our_experience,
+  services,
+} = entry.data;
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <section class="bg-gradient pb-12 pt-28 lg:pb-20 lg:pt-[206px]">
+    <div class="container">
+      <div class="row justify-center">
+        <PageHeader
+          title={title}
+          page_header_description={page_header_description}
+        />
+        <div class="-mb-12 px-10 lg:col-10 lg:px-0">
+          <!--<VideoComponent-->
+          <!--  video_id={video_id}-->
+          <!--  thumbnail={video_thumbnail}-->
+          <!--  client:load-->
+          <!--/>-->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--<Experiences our_experience={our_experience} />-->
+  <!--<AboutService services={services} />-->
+  <!--<OurTeam our_team={our_team.data} />-->
+  <!--<CallToAction call_to_action={call_to_action} />-->
+</Base>

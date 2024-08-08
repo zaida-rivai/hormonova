@@ -1,0 +1,42 @@
+b,
+strong {
+  @apply font-semibold;
+}
+code {
+  @apply after:border-none;
+}
+
+.shadow-sm {
+  box-shadow: 0px 5px 30px 10px rgba(0, 0, 0, 0.02);
+}
+
+.shadow {
+  box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.03);
+}
+
+.shadow-lg {
+  box-shadow: 0px 5px 35px 20px rgba(0, 0, 0, 0.03);
+}
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  width: auto;
+}
+.my-masonry-grid_column {
+  /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div {
+  margin-bottom: 30px;
+  width: 100% !important;
+}
+
+.bg-gradient {
+  @apply bg-[url("/images/banner-gradient.png")] bg-contain bg-no-repeat;
+}
+.bg-shape {
+  @apply bg-[url("/images/banner-shape.png")] bg-contain bg-no-repeat;
+}

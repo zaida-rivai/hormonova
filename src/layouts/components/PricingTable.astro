@@ -1,0 +1,66 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { Check, X } from "react-feather";
+
+const { title, pricing_card, features } = Astro.props;
+---
+
+<section class="section-bordered mt-0">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-11 xl:col-10">
+        <h2
+          class="highlighted mb-14 text-center"
+          set:html={markdownify(title)}
+        />
+        <div class="overflow-x-auto md:rounded-2xl md:border md:border-border">
+          <table class="price-table w-full">
+            <thead class="shadow-sm">
+              <tr>
+                <th
+                  class="w-[45%] min-w-[250px] py-5 pl-2 text-start font-secondary text-lg font-normal text-black lg:text-2xl xl:w-[50%] xl:pl-8"
+                  >Features</th
+                >
+                {
+                  pricing_card.map((item: any) => (
+                    <th class="px-2 py-5 font-secondary text-lg font-normal text-black xl:text-2xl">
+                      {item.name}
+                    </th>
+                  ))
+                }
+              </tr>
+            </thead>
+            <tbody>
+              {
+                features.map((item: any, i: number) => (
+                  <tr
+                    class={i % 2 !== 0 ? "bg-[#F2F9FF] shadow-sm" : undefined}
+                  >
+                    <td class="pl-2 xl:pl-8">{item}</td>
+                    {pricing_card.map((feeature: any) =>
+                      feeature.services.includes(item) ? (
+                        <td data-label={feeature.name}>
+                          <span class="flex justify-end text-primary md:justify-center">
+                            {" "}
+                            <Check size={18} />
+                          </span>
+                        </td>
+                      ) : (
+                        <td data-label={feeature.name}>
+                          <span class="flex justify-end text-[#D62221] md:justify-center">
+                            {" "}
+                            <X size={18} />
+                          </span>
+                        </td>
+                      ),
+                    )}
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

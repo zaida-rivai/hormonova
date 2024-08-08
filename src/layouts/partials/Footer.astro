@@ -1,0 +1,81 @@
+---
+import Logo from "@/components/Logo.astro";
+import Social from "@/components/Social.astro";
+import config from "@/config/config.json";
+import menu from "@/config/menu.json";
+import social from "@/config/social.json";
+import { markdownify } from "@/lib/utils/textConverter";
+const { copyright, location, email, phone, footer_description } = config.params;
+const {
+  footer: { quick_link, support },
+} = menu;
+---
+
+<footer class="footer bg-dark">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="footer-grid pb-16 pt-[100px] lg:col-10">
+        <div class="footer-col mb-10 lg:mb-0 lg:max-w-[270px]">
+          <div class="mb-4">
+            <Logo />
+          </div>
+          <p class="mb-10">
+            {footer_description}
+          </p>
+          <span class="mb-2 inline-block font-primary text-lg font-semibold"
+            >Follow us</span
+          >
+          <Social
+            source={social}
+            className="social-icons footer-social-icons"
+          />
+        </div>
+        <div class="footer-col mb-10 lg:mb-0">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            {
+              quick_link.map((item: any) => (
+                <li>
+                  <a class="footer-link" href={item.url}>
+                    {item.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="footer-col mb-10 lg:mb-0">
+          <h5>Support</h5>
+          <ul class="footer-links">
+            {
+              support.map((item: any) => (
+                <li>
+                  <a class="footer-link" href={item.url}>
+                    {item.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Location & Contact</h5>
+          <ul>
+            <li class="mb-2">{location}</li>
+            <li>
+              <a class="footer-link" href={`mailto:${email}`}>{email}</a>
+            </li>
+            <li>
+              <a class="footer-link hover:underline" href={`tel:${phone}`}
+                >{phone}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row border-t border-[#4B4B4B] py-8 text-center lg:col-10">
+        <p class="text-sm text-[#ABABAB]" set:html={markdownify(copyright)} />
+      </div>
+    </div>
+  </div>
+</footer>

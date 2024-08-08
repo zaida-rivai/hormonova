@@ -1,0 +1,36 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+const { call_to_action } = Astro.props;
+const { enable, title, description, button } = call_to_action.data;
+---
+
+{
+  enable && (
+    <section class="cta section-bordered">
+      <div class="container">
+        <div class="row relative mx-0 justify-center">
+          <div class="col-12">
+            <img
+              class="absolute left-0 top-0 -z-[1] h-full w-full"
+              src="/images/cta-bg.png"
+              alt=""
+            />
+          </div>
+          <div class="text-center lg:col-10">
+            <div class="rounded-xl border border-border bg-white/40 py-20 shadow">
+              <div class="mx-auto md:max-w-[588px]">
+                <h2 class="highlighted mb-6" set:html={markdownify(title)} />
+                <p class="mb-6">{description}</p>
+                {button.enable && (
+                  <a href={button.link} class="btn btn-primary">
+                    {button.label}
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

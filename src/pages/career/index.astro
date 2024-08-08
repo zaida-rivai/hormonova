@@ -1,0 +1,48 @@
+---
+import Benefit from "@/components/Benefit.astro";
+import Brands from "@/components/Brands.astro";
+import CommonHeader from "@/components/CommonHeader.astro";
+import CareerJobpost from "@/components/career/CareerJobpost.astro";
+import Interview from "@/components/career/Interview.astro";
+import OurCompany from "@/components/career/OurCompany.astro";
+import Gellary from "@/function-components/Gellary";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { getEntry } from "astro:content";
+const careerIndex = await getEntry("careers", "-index");
+const brands = await getEntry("sections", "brands");
+const {
+  our_benefits,
+  career,
+  image,
+  title,
+  page_description,
+  button,
+  our_company,
+  interview,
+  our_work,
+} = careerIndex.data;
+// const categories = await getTaxonomy("careers", "categories");
+const jobposts = await getSinglePage("careers");
+---
+
+<Base
+  title={careerIndex.data.title}
+  meta_title={careerIndex.data.meta_title}
+  description={careerIndex.data.description}
+  image={careerIndex.data.image}
+>
+  <CommonHeader
+    title={title}
+    page_description={page_description}
+    button={button}
+    image={image}
+  />
+  <Brands brands={brands} />
+  <OurCompany our_company={our_company} />
+  <Benefit our_benefits={our_benefits} />
+  <Interview interview={interview} />
+
+  <Gellary client:load our_work={our_work} />
+  <CareerJobpost jobpost={jobposts} career={career} />
+</Base>

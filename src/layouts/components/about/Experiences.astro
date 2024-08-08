@@ -1,0 +1,39 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { Image } from "astro:assets";
+const {
+  our_experience: { title, experiences },
+} = Astro.props;
+---
+
+<section class="section-bordered">
+  <div class="container">
+    <div class="row relative justify-center">
+      <div
+        class="grained-bg absolute left-0 top-0 h-full w-full opacity-[0.16]"
+      >
+        <img src="/images/common-bg.png" alt="" />
+      </div>
+      <div class="mb-14 text-center lg:col-6">
+        <h2 class="section-title mb-0" set:html={markdownify(title)} />
+      </div>
+      <div class="lg:col-11 xl:col-10">
+        <div class="row gy-4">
+          {
+            experiences.map((item: any) => (
+              <div class="md:col-6 lg:col-4">
+                <div class="h-full rounded-xl border border-border px-8 py-10 text-center">
+                  <span class="mb-6 inline-block">
+                    <Image height={62} width={64} src={item.image} alt="" />
+                  </span>
+                  <h5 class="mb-6 capitalize">{item.title}</h5>
+                  <p class="text-lg">{item.content}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
