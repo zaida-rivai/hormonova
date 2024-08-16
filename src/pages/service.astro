@@ -39,39 +39,4 @@ const jobposts = await getSinglePage("careers");
     button={button}
     image={image}
   />
-  <section class="section-bordered mt-0">
-    <div class="container">
-      <div class="row justify-center">
-        <div class="row justify-center lg:col-11 xl:col-10">
-          <div class="mb-14 text-center lg:col-10 xl:col-8">
-            <h2
-              class="section-title"
-              set:html={markdownify(integration.title)}
-            />
-            <p class="mb-12">{integration.content}</p>
-            {
-              integration.button.enable && (
-                <a href={integration.button.link} class="btn btn-primary">
-                  {integration.button.label}
-                </a>
-              )
-            }
-          </div>
-          <div class="lg:col-11 xl:col-10">
-            <Image
-              class="mx-auto w-full max-w-[946px] rounded-xl"
-              src={integration.image}
-              alt=""
-              height={457}
-              width={948}
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <Solutions our_solutions={our_solutions} />
-  <JobPosts jobposts={jobposts} job_post={job_post} />
-  <Benefit our_benefits={our_benefits} />
-  <CallToAction call_to_action={call_to_action} />
 </Base>

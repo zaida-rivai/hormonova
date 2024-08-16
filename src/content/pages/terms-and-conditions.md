@@ -1,41 +1,70 @@
 ---
-title: "Terms & Condition Of Pinwheel"
-excerpt: Donec sollicitudin molestie malesda. Donec sollitudin molestie male <br /> suada Mauris pellentesque nec egestas non nisi Cras
+title: "Privacy Policy"
+excerpt: Thank you for choosing Hormonova. This Privacy Policy outlines how we collect, use, and protect your information when you use our app to monitor mood swings.
 draft: false
 ---
 
-### 1. Definitions
+### 1. Information We Collect
 
-We collect certain identifying personal data when you sign up to our Service such as your name, email address, PayPal address (if different from email address), and telephone number. The personal data we collect from you is disclosed only in accordance with our Terms of Service and/or this Privacy Policy.Conclude collects Slack account and access information from Users for the purposes of connecting to the Slack API and to authenticate access to information on the Conclude website. Whenever you visit our Site, we may collect non-identifying information from you, such as referring URL, browser, operating system, cookie information, and Internet Service Provider. Without a subpoena, voluntary compliance on the part of your Internet Service Provider, or additional records from a third party, this information alone cannot usually be used to identify you.The term "personal data" does not include any anonymized and aggregated data made on the basis of personal data, which are wholly owned by Conclude.
+We collect the following types of information to provide and improve our services:
 
-### 2. General Terms
+- Personal Information: Name, email address, age, and weight
+- Mood Data: Entries related to your mood swings, including timestamps, mood levels, heart rate, heart rate variability, temperature and notes.
+- Usage Data: Information about how you interact with the app, including features used, time spent, and other usage statistics.
 
-#### Service Provided AS IS
+### 2. How We Use Your Information
 
-The Service is provided for free during this pilot project, and is provided "as is" with no warranty. Conclude will provide User support for the Service, however; Conclude is not committed to any level of service or availability of the Service. A further description of the Service and our user support is available at the Site.
+We use the information collected for the following purposes:
 
-#### Interoperation with Slack
+- To provide, personalize, and improve the app experience.
+- To analyze trends and patterns to help you understand your mood swings.
+- To communicate with you about updates, offers, or support.
+- To maintain and improve the security of the app.
 
-The Service interoperates with Slack.com, and depends on the continuing availability and access to Slack. If for any reason Conclude cannot access or use Slack (including without limitation, change in terms or increase in fees charged by Slack), Conclude may not be able to provide all of the functions of its Service. No refund or credit, if applicable, will be provided for temporary unavailability of Slack (for example, maintenance windows).
 
-#### Company Liability
+### 3. Sharing Your Information
 
-If you enter into this agreement on behalf of a company, you hereby agree that the company is responsible under this Agreement for all actions and omissions conducted by its designated users of the Service.
+We will never share your personal information with third parties except in the following circumstances:
 
-### 4. Rules of Use
+- With Your Consent: We may share information when you give us explicit permission to do so.
+- For Legal Reasons: If required by law or to protect the rights, property, or safety of our users or others.
+
+### 4. Data Security
+
+We take data security seriously and implement appropriate measures to protect your information.
+
+### 5. Data Retention
+
+We will retain your information for as long as necessary to provide the services or as required by law. You can request the deletion of your data at any time.
+
+### 6. Rules of Use
 
 1. must keep passwords secure and confidential;
 2. are solely responsible for User Data and all activity in their account while using the Service;
 3. must use commercially reasonable efforts to prevent unauthorized access to their account, and notify Conclude promptly of any such unauthorized access; and
 4. may use the Service only in accordance with Conclude's online user guide and all applicable laws and regulations.
 
-#### You must not
+### 7. Your Rights
 
-- Enhance or improve User experience, our Site, or our Service.
-- Process transactions.
-- Send emails about our Site or respond to inquiries.
-- As this Privacy Policy and our Terms of Service.
+You have the right to:
 
-### 5. Intellectual Property Rights
+- Access: Request access to the personal information we hold about you.
+- Rectify: Request correction of any inaccurate or incomplete information.
+- Delete: Request deletion of your data.
+- Restrict Processing: Request to restrict the processing of your information.
+- Data Portability: Request a copy of your data in a structured, commonly used format.
 
-Your information may be transferred to — and maintained on — computers located outside of your state, province, country or other governmental jurisdiction where the privacy laws may not be as protective as those in your jurisdiction. If you choose to provide information to us, Conclude transfers Personal Information to Google Cloud Platform and processes it there. Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.
+
+### 8. Children's Privacy
+   Our app is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have collected such information, please contact us so we can delete it.
+
+### 9. Changes to This Policy
+   We may update this Privacy Policy from time to time. We will notify you of any changes by updating the "Effective Date" above and providing a notice within the app.
+
+### 10. Contact Us
+
+   If you have any questions or concerns about this Privacy Policy or our practices, please contact us at:
+   
+   info@hormonova.com
+
+   By using Hormonova, you agree to the terms outlined in this Privacy Policy.
